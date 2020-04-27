@@ -13,12 +13,19 @@ int knob = A0; // The pin reading signal from 10K pot.
 int knobIn = 0; // variable to store the raw value of the pot.
 int knobValue = 0; // variable to store the PWM value of the pot.
 
+//Button for 5s mode
+int buttonIn = 2; //Pin that the button is connected to.
+int buttonVal = 0; //Variable to store the button value.
+
 //NOTE: **When adjusting the speed it will only change after the loop is complete.**
 int motorTime = 10000; // How long the motor will spin in millis.
+int motorTime2 = 5000; // How long the motor will spin when button is HIGH
 int pauseTime = 2000; // How long to pause at the end of each run.
 
 void setup() {
   Serial.begin(115200);
+
+  pinMode(buttonIn, INPUT);
 
   // Set all the motor control pins to outputs
   pinMode(enA, OUTPUT);
@@ -49,7 +56,14 @@ void motorControl() {
   digitalWrite(in4, LOW);
   // Set speed, range 0~255
   analogWrite(enB, knobValue);
-  delay(motorTime);
+  
+  //Run the motor depending on button value
+  if (buttonVal = LOW){
+    delay(motorTime);
+  }
+  else if (buttonVal = HIGH){
+    delay(motorTime2);
+  }
 
 
   //Pause the motor for "pauseTime".
@@ -75,7 +89,14 @@ void motorControl() {
   digitalWrite(in4, HIGH);
   // Set speed, range 0~255
   analogWrite(enB, knobValue);
-  delay(motorTime);
+  
+  //Run the motor depending on button value
+  if (buttonVal = LOW){
+    delay(motorTime);
+  }
+  else if (buttonVal = HIGH){
+    delay(motorTime2);
+  }
 
 
   //Pause the motor for "pauseTime".
